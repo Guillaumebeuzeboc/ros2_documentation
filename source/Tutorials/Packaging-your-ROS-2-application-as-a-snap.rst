@@ -126,7 +126,7 @@ Parts
         build-packages: [make, gcc, g++]
         stage-packages: [ros-{DISTRO}-ros2launch]
 
-Parts define how to build your app.
+Parts define how to build the app.
 In this case, we have one: ``ros-demos``.
 Parts can point to local directories, remote git repositories, or tarballs.
 Here, we specify our source as a GitHub repository at a specific branch.
