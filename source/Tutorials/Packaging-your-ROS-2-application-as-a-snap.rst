@@ -8,13 +8,13 @@ Packaging your ROS 2 application as a snap [community-contributed]
 What are snaps?
 ---------------
 
-`Snaps <https://snapcraft.io/>`_ are containers that bundle an application and all its dependencies.
+`Snaps <https://snapcraft.io/docs/robotics>`_ are containers that bundle an application and all its dependencies.
 They offer several features that address important concerns as one gets closer to shipping a robotic platform:
 
-- Container solution: Snaps bundle all your dependencies and assets in one package (including ROS 2) making your application installable on dozens of Linux distributions and across distro versions.
-- Strict confinement: Snaps are designed to be `secure and isolated <https://snapcraft.io/docs/snap-confinement>`_ from the underlying system and other applications, with `dedicated interfaces <https://snapcraft.io/docs/supported-interfaces>`_ to access the host machine.
-- Managing updates: Snaps can update `automatically and transactionally <https://snapcraft.io/docs/keeping-snaps-up-to-date>`_, making sure the device is never broken and always up-to-date.
-- Release management: Snaps' `multiple release channels <https://snapcraft.io/docs/channels>`_ allow you to have role-based access controls and application versioning, making A/B testing easy and releasing fixes faster.
+- **Container solution**: Snaps bundle all your dependencies and assets in one package (including ROS 2) making your application installable on dozens of Linux distributions and across distro versions.
+- **Strict confinement**: Snaps are designed to be `secure and isolated <https://snapcraft.io/docs/snap-confinement>`_ from the underlying system and other applications, with `dedicated interfaces <https://snapcraft.io/docs/supported-interfaces>`_ to access the host machine.
+- **Managing updates**: Snaps can update `automatically and transactionally <https://snapcraft.io/docs/keeping-snaps-up-to-date>`_, making sure the device is never broken and always up-to-date.
+- **Release management**: Snaps' `multiple release channels <https://snapcraft.io/docs/channels>`_ allow you to have role-based access controls and application versioning, making A/B testing easy and releasing fixes faster.
 
 Creating a snap
 ---------------
@@ -87,7 +87,7 @@ Metadata
       This example launches a ROS 2 talker and listener.
 
 This is the basic `metadata <https://snapcraft.io/docs/snapcraft-top-level-metadata>`_ that all snaps require.
-These fields are fairly self-explanatory, but note that the name must be globally unique among all snaps.
+These fields are fairly self-explanatory but note that the name must be globally unique across all snaps.
 
 Base
 """"
@@ -98,7 +98,7 @@ Base
 
 The `base <https://snapcraft.io/docs/base-snaps>`_ keyword defines a special kind of snap that provides a run-time environment with a minimal set of libraries that are common to most applications.
 `Core20 <https://snapcraft.io/core20>`_ is the current standard base for snap building and is based on `Ubuntu 20.04 LTS <http://releases.ubuntu.com/20.04/>`_.
-It is therefore the base used for {DISTRO}.
+It is, therefore, the base used for {DISTRO}.
 
 Security model
 """"""""""""""
@@ -109,7 +109,7 @@ Security model
 
 To get started, we won't confine this application.
 Unconfined applications, specified with ``devmode``,
-can only be released to the “edge” channel of the snapcraft store.
+can only be released to the ``edge`` channel of the snapcraft store.
 
 Parts
 """""
@@ -126,10 +126,10 @@ Parts
         stage-packages: [ros-{DISTRO}-ros2launch]
 
 Parts define how to build your app.
-In this case, we have one: ``ros2-demos``.
+In this case, we have one: ``ros-demos``.
 Parts can point to local directories, remote git repositories, or tarballs.
 Here, we specify our source as a GitHub repository at a specific branch.
-We also specifically tell ``Colcon`` to build the demo_nodes_cpp package.
+We also specifically tell ``Colcon`` to build the ``demo_nodes_cpp`` package.
 Furthermore we tell snapcraft that packages such as ``make`` are necessary at build time while the package ros-{DISTRO}-ros2launch is necessary at run time.
 For more information about the plugin and it options, please refer to the `online documentation <https://snapcraft.io/docs/the-colcon-plugin>`_.
 
@@ -146,7 +146,7 @@ Apps
 Apps are the commands exposed to end users.
 Each key under apps is the command name that should be made available on users' systems.
 The command keyword specifies the command to be run as its name suggests.
-Finally, the extensions `ros2-{DISTRO} basically <https://snapcraft.io/docs/ros2-extension>`_ essentially sets up the ROS 2 apt package repository together with the necessary environment variables.
+Finally, the extensions `ros2-{DISTRO} <https://snapcraft.io/docs/ros2-extension>`_ essentially sets up the ROS 2 apt package repository together with the necessary environment variables.
 
 Building the snap
 ^^^^^^^^^^^^^^^^^
@@ -169,7 +169,7 @@ Giving:
     Snapped ros2-talker-listener_0.1_amd64.snap
 
 That will take a few minutes.
-From the logs, and among other things, you will see snapcraft using `rosdep <http://docs.ros.org/independent/api/rosdep/html/>`_ to pull the dependencies of your package but also Colcon building your application.
+From the logs, and among other things, you will see snapcraft using `rosdep <http://docs.ros.org/independent/api/rosdep/html/>`_ to pull the dependencies of your package but also ``Colcon`` building your application.
 
 Testing the snap
 ^^^^^^^^^^^^^^^^
@@ -197,4 +197,5 @@ The moment of truth, will it run?
     [listener-2] [INFO] [1646934736.523614075] [listener]: I heard: [Hello World: 2]
 
 It does! We see the expected output!
+
 You can find more information about snap on the `snapcraft documentation <https://snapcraft.io/docs>`_ and `ROS 2 snap page <https://snapcraft.io/docs/ros2-applications>`_.
